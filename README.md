@@ -62,7 +62,7 @@ public final static String FILE_UPLOAD_PATH = "/home/ec2-user/images/";
 // 파일을 컴퓨터에 저장 -> url path 리턴
 public String saveFile(int userId, MultipartFile file) throws IOException {
   // 파일 디렉토리 경로 만들기
-  String directoryName = userId + "_" + System.currentTimeMillis() + "/";	// ex) 1_1620995857660/
+  String directoryName = userId + "_" + System.currentTimeMillis() + "/";
   String filePath = FILE_UPLOAD_PATH + directoryName;
 
   File directory = new File(filePath);
@@ -73,7 +73,8 @@ public String saveFile(int userId, MultipartFile file) throws IOException {
 
   // 파일 업로드 -> byte 단위로 업로드
   byte[] bytes = file.getBytes();
-  Path path = Paths.get(filePath + file.getOriginalFilename()); // getOriginalFilename() => input에서 올린 파일명
+  // getOriginalFilename() => input에서 올린 파일명
+  Path path = Paths.get(filePath + file.getOriginalFilename());
   Files.write(path, bytes);
 
   // 이미지 url 만들어 리턴
