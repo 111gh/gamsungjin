@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.gamsungjin.post.dao.PostDAO">
+ 	<!-- 전체글목록 -->
+ 	<select id="selectPostList" resultType="com.gamsungjin.post.model.Post">
+ 		SELECT
+ 			`id`
+ 			, `userId`
+ 			, `boardId`
+ 			, `nickname`
+ 			, `subject`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 			, `visit`
+ 		FROM
+ 			`post`
+ 		ORDER BY `id` DESC
+ 		LIMIT 10
+ 	</select>
+ 	
+ 	<!-- 선택된 게시판 글목록 -->
+ 	<select id="selectPostBoardList" parameterType="int" resultType="com.gamsungjin.post.model.Post">
+ 		SELECT
+ 			`id`
+ 			, `userId`
+ 			, `boardId`
+ 			, `nickname`
+ 			, `subject`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 			, `visit`
+ 		FROM
+ 			`post`
+ 		WHERE
+ 			`boardId` = #{boardId}
+ 		ORDER BY `id` DESC
+ 	</select>
+ 	
+ 	<!-- 공지사항 글목록 -->
+ 	<select id="selectPostNoticeList" resultType="com.gamsungjin.post.model.Post">
+ 		SELECT
+ 			`id`
+ 			, `userId`
+ 			, `boardId`
+ 			, `nickname`
+ 			, `subject`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 			, `visit`
+ 		FROM
+ 			`post`
+ 		WHERE
+ 			`boardId` = 1
+ 		ORDER BY `id` DESC
+ 		LIMIT 5
+ 	</select>
+ 	
+ 	<!-- 사진게시판 글목록 -->
+ 	<select id="selectPostImageList" resultType="com.gamsungjin.post.model.Post">
+ 		SELECT
+ 			`id`
+ 			, `userId`
+ 			, `boardId`
+ 			, `nickname`
+ 			, `subject`
+ 			, `content`
+ 			, `imagePath`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 			, `visit`
+ 		FROM
+ 			`post`
+ 		WHERE
+ 			`boardId` = 7
+ 		ORDER BY `id` DESC
+ 		LIMIT 6
+ 	</select>
+ 	
+ 	<select id="selectPostById" parameterType="int" resultType="com.gamsungjin.post.model.Post">
+		SELECT
+ 			`post`.`id`
+ 			, `post`.`userId`
+ 			, `post`.`boardId`
+ 			, `post`.`nickname`
+ 			, `post`.`subject`
+ 			, `post`.`content`
+ 			, `post`.`imagePath`
+ 			, `post`.`createdAt`
+ 			, `post`.`updatedAt`
+ 			, `post`.`visit`
+ 			, `board`.`name` AS `boardName`
+ 		FROM
+ 			`post`
+ 		JOIN
+ 			`board`
+ 		ON
+ 			`post`.`boardId` = `board`.`id`
+ 		WHERE
+ 			`post`.`id` = #{id}
+ 	</select>
+ 	
+ 	<select id="getPostCountByUserId" parameterType="int" resultType="int">
+ 		SELECT
+ 			count(*)
+ 		FROM
+ 			`post`
+ 		WHERE
+ 			`userId` = #{userId}
+ 	</select>
+ 	
+ 	<insert id="insertPost" parameterType="map">
+ 		INSERT INTO `post`
+		(
+			`userId`
+			, `boardId`
+			, `nickname`
+			, `subject`
+			, `content`
+			, `imagePath`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{userId}
+			, #{boardId}
+			, #{nickname}
+			, #{subject}
+			, #{content}
+			, #{imagePath}
+			, NOW()
+			, NOW()
+		)
+ 	</insert>
+ 	
+ 	<delete id="deletePostById" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`post`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
+ 	
+ 	<update id="updatePostById" parameterType="map">
+ 		UPDATE
+ 			`post`
+ 		SET
+ 			`boardId` = #{boardId}
+ 			, `subject` = #{subject}
+ 			, `content` = #{content}
+ 			, `imagePath` = #{imagePath}
+ 			, `updatedAt` = NOW()
+ 		WHERE
+ 			`id` = #{postId}
+ 	</update>
+ 	
+ 	<update id="updateVisitById" parameterType="int">
+ 		UPDATE
+ 			`post`
+ 		SET
+ 			`visit` = `visit` + 1
+ 		WHERE
+ 			`id` = #{id}
+ 	</update>
+ </mapper>

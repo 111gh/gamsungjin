@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.gamsungjin.comment.dao.CommentDAO">
+ 	<select id="getCommentCountByUserId" parameterType="int" resultType="int">
+ 		SELECT
+ 			count(*)
+ 		FROM
+ 			`comment`
+ 		WHERE
+ 			`userId` = #{userId}
+ 	</select>
+ 	
+ 	<select id="selectCommentListByPostId" parameterType="int" resultType="com.gamsungjin.comment.model.Comment">
+ 		SELECT
+ 			`id`
+ 			, `userId`
+ 			, `postId`
+ 			, `nickname`
+ 			, `content`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`comment`
+ 		WHERE
+ 			`postId` = #{postId}
+ 	</select>
+ 	
+ 	<insert id="insertComment" parameterType="map">
+ 		INSERT INTO `comment`
+		(
+			`userId`
+			, `postId`
+			, `nickname`
+			, `content`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{userId}
+			, #{postId}
+			, #{nickname}
+			, #{content}
+			, NOW()
+			, NOW()
+		)
+ 	</insert>
+ 	
+ 	<delete id="deleteCommentByPostId" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`comment`
+ 		WHERE
+ 			`postId` = #{postId}
+ 	</delete>
+ 	
+ 	<delete id="deleteCommentById" parameterType="int">
+ 		DELETE
+ 		FROM
+ 			`comment`
+ 		WHERE
+ 			`id` = #{id}
+ 	</delete>
+ </mapper>

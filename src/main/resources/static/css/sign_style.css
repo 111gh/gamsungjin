@@ -1,0 +1,10 @@
+@charset "UTF-8";
+
+#wrap {width: 1000px; margin: auto;}
+
+header {height: 100px;}
+#logo a, #logo a:hover {text-decoration: none; color: black;}
+
+section {height: 700px; display: flex; justify-content: center;}
+
+footer {height: 50px; display: flex; justify-content: center;}

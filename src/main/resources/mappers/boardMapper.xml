@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.gamsungjin.board.dao.BoardDAO">
+ 	<select id="selectBoardList" resultType="com.gamsungjin.board.model.Board">
+ 		SELECT
+ 			`id`
+ 			, `name`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`board`
+ 	</select>
+ 	
+ 	<select id="selectBoardById" parameterType="int" resultType="com.gamsungjin.board.model.Board">
+ 		SELECT
+ 			`id`
+ 			, `name`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`board`
+ 		WHERE
+ 			`id` = #{id}
+ 	</select>
+ </mapper>

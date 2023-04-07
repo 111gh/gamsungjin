@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+#wrap {width: 1000px; margin: auto;}
+
+header {height: 100px;}
+header h1 {margin-left: 20px; margin-top: 10px;}
+header a, header a:hover {text-decoration: none; color: black;}
+
+nav {width: 200px;}
+nav #divInfo {padding-top: 10px; padding-bottom: 10px; background-color: rgb(220,220,220);}
+nav #divBoard {margin-top: 10px; padding: 10px; background-color: rgb(220,220,220);}
+nav a, nav a:hover {color: black;}
+
+section {width: 800px; height: 700px;}
+
+footer {height: 50px; display: flex; justify-content: center;}

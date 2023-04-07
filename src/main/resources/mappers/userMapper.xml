@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ 
+ <mapper namespace="com.gamsungjin.user.dao.UserDAO">
+ 	<insert id="insertUser" parameterType="map">
+ 		INSERT INTO `user`
+		(
+			`loginId`
+			, `password`
+			, `nickname`
+			, `createdAt`
+			, `updatedAt`
+		)
+		VALUES
+		(
+			#{loginId}
+			, #{password}
+			, #{nickname}
+			, NOW()
+			, NOW()
+		)
+ 	</insert>
+ 
+ 	<select id="selectUserByLoginId" parameterType="string" resultType="com.gamsungjin.user.model.User">
+ 		SELECT
+ 			`id`
+ 			, `loginId`
+ 			, `password`
+ 			, `nickname`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`loginId` = #{loginId}
+ 	</select>
+ 	
+ 	<select id="selectUserByLoginIdAndPassword" parameterType="map" resultType="com.gamsungjin.user.model.User">
+ 		SELECT
+ 			`id`
+ 			, `loginId`
+ 			, `password`
+ 			, `nickname`
+ 			, `createdAt`
+ 			, `updatedAt`
+ 		FROM
+ 			`user`
+ 		WHERE
+ 			`loginId` = #{loginId}
+ 			AND `password` = #{password}
+ 	</select>
+ </mapper>
